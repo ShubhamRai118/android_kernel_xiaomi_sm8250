@@ -17,7 +17,9 @@ jobs:
           tar -xzf clang-r574158.tar.gz -C aosp-clang
 
       - name: Compile kernel
-        run: ./scripts/RvCompiler/compile.sh DEFCONFIG=vendor/xiaomi/alioth_defconfig CLANG_DIR=$PWD/aosp-clang KBUILD_BUILD_USER=Rve KBUILD_BUILD_HOST=RvEnterprises
+        run: |
+          git submodule init && git submodule update
+          ./scripts/RvCompiler/compile.sh DEFCONFIG=vendor/xiaomi/alioth_defconfig CLANG_DIR=$PWD/aosp-clang KBUILD_BUILD_USER=Rve KBUILD_BUILD_HOST=RvEnterprises
 
       - name: Upload Image & DTBO
         uses: actions/upload-artifact@v4
